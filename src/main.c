@@ -14,6 +14,7 @@ int screen_height = 576;
 int y_dir = -5;
 int x_dir = -5;
 
+
 int main( int argc, char * argv[] ) {
 	
 	if(ww_window_create(argc, argv, "Pixarray", 1024, 576)) {
@@ -27,7 +28,7 @@ int main( int argc, char * argv[] ) {
 	init_ball();
 			
 	//mathing the paddle location
-	player_two->pad_x = screen_width - player_two->width;
+	player_two->pad_x = (screen_width - player_two->width);
 		
 	//offset to get location of ball
 	ball->pad_y = (screen_height / 2)	-	(ball->height / 2);
@@ -58,29 +59,35 @@ int main( int argc, char * argv[] ) {
 			y_dir = y_dir * -1;	
 		}
 		
-		//if (ball->pad_x > (screen_width - ball->width)) {
-		//	x_dir = x_dir * -1;	
-	
 		
-		//**bounces ball**
-		//if (ball->pad_x <= 0) 
-		//x_dir = x_dir * -1;
-		 
+		//**paddle bounce**
+		if (ball->pad_x <= player_one->pad_x) {
+			if (ball->pad_y <= player_one->pad_y + player_one->height && 
+				!(ball->pad_y < player_one->pad_y)) {
+		x_dir = x_dir * -1;
+				
+			}
+		}
 		
+		if (ball->pad_x >= player_two->pad_x) {
+			if (ball->pad_y <= player_two->pad_y + player_two->height && 
+				!(ball->pad_y < player_two->pad_y)) {
+		x_dir = x_dir * -1;
+				
+			}
+		}
 		//respawn ball
 		if (ball->pad_x < 0 || ball->pad_x > screen_width) {
 			ball->pad_x = (screen_width/2) - (ball->width/2);
 			ball->pad_y = (screen_height/2) - (ball->height/2);
-		}
-		
-		// Wooooooooaaaaahhhhhhh
+			x_dir = x_dir * -1;
 			
+		}	
 		
 		//portal pong
 		//if (player_one->pad_y > screen_height) {
 			//player_one = 0;
 		
-		// paddle bounce
 		
 		//step 3 add sprites to game
 		ww_draw_sprite (player_one);
