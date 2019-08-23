@@ -61,7 +61,7 @@ int main( int argc, char * argv[] ) {
 		
 		
 		//**paddle bounce**
-		if (ball->pad_x <= player_one->pad_x) {
+		if (ball->pad_x <= player_one->pad_x + player_one->width) {
 			if (ball->pad_y <= player_one->pad_y + player_one->height && 
 				!(ball->pad_y < player_one->pad_y)) {
 		x_dir = x_dir * -1;
@@ -69,7 +69,7 @@ int main( int argc, char * argv[] ) {
 			}
 		}
 		
-		if (ball->pad_x >= player_two->pad_x) {
+		if (ball->pad_x >= player_two->pad_x - player_two->width) {
 			if (ball->pad_y <= player_two->pad_y + player_two->height && 
 				!(ball->pad_y < player_two->pad_y)) {
 		x_dir = x_dir * -1;
