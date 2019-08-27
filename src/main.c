@@ -6,6 +6,9 @@
 //step 1 declare sprites
 #include "player_one.h"
 #include "player_two.h"
+#include "backboard.h"
+#include "bluescore.h"
+#include "redscore.h"
 #include "ball.h"
 
 //adding this to allow location of player 2 and ball location
@@ -13,7 +16,6 @@ int screen_width = 1024;
 int screen_height = 576;
 int y_dir = -5;
 int x_dir = -5;
-
 
 int main( int argc, char * argv[] ) {
 	
@@ -25,8 +27,25 @@ int main( int argc, char * argv[] ) {
 	//step 2 declare sprites
 	init_player_one();
 	init_player_two();
+	init_backboard();
+	init_bluescore();
+	init_redscore();
 	init_ball();
-			
+	
+	
+	//object locations
+	bluescore->scale = .5;
+	redscore->scale = .5;
+	backboard->scale = .5;
+	
+	bluescore->pad_x = (screen_width / 2) - (backboard->width / 2) + 125;
+	bluescore->pad_y = 29;
+	
+	redscore->pad_x = bluescore->pad_x + 108;
+	redscore->pad_y = 29;
+	
+	backboard->pad_x = (screen_width / 2) - (backboard->width / 2) + 100;
+		
 	//mathing the paddle location
 	player_two->pad_x = (screen_width - player_two->width);
 		
@@ -76,6 +95,18 @@ int main( int argc, char * argv[] ) {
 				
 			}
 		}
+		
+		//scoreboard
+		if (ball->pad_x > screen_width) {
+			(bluescore->active_animation = bluescore->active_animation + 1); 
+		
+		}	
+		
+		if (ball->pad_x < 0) {
+			(redscore->active_animation = redscore->active_animation + 1); 
+		
+		}
+		
 		//respawn ball
 		if (ball->pad_x < 0 || ball->pad_x > screen_width) {
 			ball->pad_x = (screen_width/2) - (ball->width/2);
@@ -83,6 +114,7 @@ int main( int argc, char * argv[] ) {
 			x_dir = x_dir * -1;
 			
 		}	
+	
 		
 		//portal pong
 		//if (player_one->pad_y > screen_height) {
@@ -92,6 +124,9 @@ int main( int argc, char * argv[] ) {
 		//step 3 add sprites to game
 		ww_draw_sprite (player_one);
 		ww_draw_sprite (player_two);
+		ww_draw_sprite (backboard);
+		ww_draw_sprite (bluescore);
+		ww_draw_sprite (redscore);
 		ww_draw_sprite (ball);
 		
 		ww_window_update_events();

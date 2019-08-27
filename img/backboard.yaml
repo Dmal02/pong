@@ -1,0 +1,31 @@
+
+animations:
+  - animation: backboard
+    frames:
+      - frame: Frame_0
+        delay: 2
+        layers:
+          - layer: left
+            color: "#0000ff"
+            x:
+              - 262
+              - 53
+              - 53
+              - 263
+            y:
+              - 226
+              - 227
+              - 64
+              - 64
+          - layer: right
+            color: "#ff0000"
+            x:
+              - 471
+              - 262
+              - 262
+              - 472
+            y:
+              - 226
+              - 227
+              - 64
+              - 64
