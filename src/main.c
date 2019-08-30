@@ -80,30 +80,39 @@ int main( int argc, char * argv[] ) {
 		
 		
 		//**paddle bounce**
-		if (ball->pad_x <= player_one->pad_x + player_one->width) {
-			if (ball->pad_y <= player_one->pad_y + player_one->height && 
-				!(ball->pad_y < player_one->pad_y)) {
-		x_dir = x_dir * -1;
+		if (ball->pad_x <= player_one->pad_x + player_one->width && 
+			ball->pad_y <= player_one->pad_y + player_one->height && 
+			ball->pad_y > player_one->pad_y) {
+		
+				x_dir = x_dir * -1;
+				ball->pad_x = player_one->width + 1;	
 				
-			}
 		}
 		
-		if (ball->pad_x >= player_two->pad_x - player_two->width) {
-			if (ball->pad_y <= player_two->pad_y + player_two->height && 
-				!(ball->pad_y < player_two->pad_y)) {
-		x_dir = x_dir * -1;
+		if (ball->pad_x >= player_two->pad_x - player_two->width && 
+			ball->pad_y <= player_two->pad_y + player_two->height && 
+			ball->pad_y > player_two->pad_y) {
 				
-			}
+				x_dir = x_dir * -1;
+				
+			
 		}
 		
 		//scoreboard
 		if (ball->pad_x > screen_width) {
-			(bluescore->active_animation = bluescore->active_animation + 1); 
-		
+			bluescore->active_animation = bluescore->active_animation + 1; 
+				if (bluescore->active_animation == 10) {
+					printf ("Blue Wins!!!") ;
+					ww_window_send_quit_event();
+			}
 		}	
 		
 		if (ball->pad_x < 0) {
-			(redscore->active_animation = redscore->active_animation + 1); 
+			redscore->active_animation = redscore->active_animation + 1; 
+				if (redscore->active_animation == 10) {
+					printf ("Red Wins!!!") ;
+					ww_window_send_quit_event();
+			}
 		
 		}
 		
